@@ -6,6 +6,9 @@ import {
   redirectLoggedInTo,
   redirectUnauthorizedTo,
 } from '@angular/fire/auth-guard';
+import { DesprePage } from './pages/despre/despre.page';
+import { AbonamentePage } from './pages/abonamente/abonmanete.page';
+import { RegisterPage } from './pages/register/register.page';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectLoggedInToProjects = () => redirectLoggedInTo(['home']);
@@ -22,6 +25,24 @@ export const appRoutes: Array<Route> = [
     component: HomePage,
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin },
+  },
+  {
+    path: 'despre',
+    component: DesprePage,
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
+  },
+  {
+    path: 'abonamente',
+    component: AbonamentePage,
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
+  },
+  {
+    path: 'register',
+    component: RegisterPage,
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectLoggedInToProjects },
   },
   {
     path: '**',

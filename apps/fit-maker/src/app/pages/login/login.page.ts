@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, OnChanges, SimpleChanges, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -8,14 +8,14 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf],
+  imports: [ReactiveFormsModule, NgIf, RouterLink],
   providers: [AuthService],
   selector: 'app-login-page',
   templateUrl: './login.page.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginPage {
   protected readonly loginForm = new FormGroup({

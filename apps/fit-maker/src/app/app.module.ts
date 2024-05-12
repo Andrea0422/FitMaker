@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { getAuth } from '@firebase/auth';
 import { provideAuth } from '@angular/fire/auth';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBIJrfqZ_QefFMxjvZINkIveRKrsqD7X5U',
@@ -25,6 +26,7 @@ const firebaseConfig = {
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     RouterModule.forRoot([...appRoutes]),
     provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
   ],
   providers: [{ provide: FIREBASE_OPTIONS, useValue: firebaseConfig }],
   bootstrap: [AppComponent],

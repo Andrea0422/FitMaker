@@ -1,1 +1,13 @@
+<nav class="bg-black p-3 sticky" *ngIf="authService.isLoggedIn">
+    <div class="flex pl-8 gap-28">
+    <img class="flex justify-start" width="120" height="180" src="/assets/images/fitmakerlogo.png" alt="fitmakerlogo" />
+    <ul class="flex flex-row text-white justify-center space-x-4 font-bold items-center">
+      <li><a routerLink="/home">Acasă</a></li>
+      <li><a routerLink="/despre">Despre</a></li>
+      <li><a routerLink="/abonamente">Abonament</a></li>
+      <li><a routerLink="/comunitateutilizator">Comunitate</a></li>
+      <li><a routerLink="/login">Cont</a></li>
+    </ul>
+    </div>
+  </nav>
 <router-outlet />
