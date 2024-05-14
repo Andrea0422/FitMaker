@@ -13,7 +13,6 @@ import { RouterLink } from '@angular/router';
 @Component({
   standalone: true,
   imports: [ReactiveFormsModule, NgIf, RouterLink],
-  providers: [AuthService],
   selector: 'app-login-page',
   templateUrl: './login.page.html',
 })

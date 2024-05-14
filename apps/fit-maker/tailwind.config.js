@@ -7,7 +7,11 @@ module.exports = {
     "./apps/**/*.{html,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'redwallpaper': "url('/assets/images/redwallpaper.png')",
+      }
+    },
   },
   plugins: [],
 };

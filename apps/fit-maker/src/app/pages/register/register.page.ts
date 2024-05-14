@@ -14,7 +14,7 @@ import { FireBaseStoreService } from '../../core/services/firebasestore.service'
 @Component({
   standalone: true,
   imports: [ReactiveFormsModule, NgIf],
-  providers: [AuthService, FireBaseStoreService],
+  providers: [FireBaseStoreService],
   selector: 'app-register-page',
   templateUrl: './register.page.html',
 })
