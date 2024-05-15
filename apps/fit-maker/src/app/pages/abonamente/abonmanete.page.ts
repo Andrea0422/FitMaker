@@ -19,7 +19,7 @@ import { first } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AbonamentePage implements OnInit {
-  subscriptionList = [];
+  subscriptionList: any[] = [];
   protected readonly fireBaseStoreService = inject(FireBaseStoreService);
   protected readonly changeDetector = inject(ChangeDetectorRef);
 
@@ -29,7 +29,9 @@ export class AbonamentePage implements OnInit {
       .pipe(first())
       .subscribe((response) => {
         console.log(response);
-        this.subscriptionList = response;
+        this.subscriptionList = response.sort(
+          (a: any, b: any) => +a.price - +b.price
+        );
         this.changeDetector.detectChanges();
         console.log(this.subscriptionList);
       });

@@ -16,6 +16,7 @@ import { AuthService } from './core/services/auth.service';
 import { filter, skip, tap } from 'rxjs';
 import { isNil } from 'lodash-es';
 import { CumparareAbonament } from './pages/cumparareabonament/cumparareabonament.page';
+import { AbonamentAchizitionatPage } from './pages/abonmanetachizitionat/abonamentachizitionat.page';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectLoggedInToProjects = () => redirectLoggedInTo(['home']);
@@ -58,7 +59,13 @@ export const appRoutes: Array<Route> = [
     data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
-    path: 'cumparareabonament',
+    path: 'abonamentachizitionat',
+    component: AbonamentAchizitionatPage,
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
+  },
+  {
+    path: 'cumparareabonament/:id',
     component: CumparareAbonament,
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin },

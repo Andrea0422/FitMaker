@@ -47,4 +47,14 @@ export class FireBaseStoreService {
 
     return getColectionData as Observable<any>;
   }
+
+  update<T>(data: any, collectionName: any): Observable<any> {
+    const collectionRef = doc(this.firestore, `${collectionName}/${data.id}`);
+    return from(setDoc(collectionRef, Object.assign({}, data)));
+  }
+
+  delete(id: any, collectionName: any): Observable<any> {
+    const collectionRef = doc(this.firestore, `${collectionName}/${id}`);
+    return from(deleteDoc(collectionRef));
+  }
 }

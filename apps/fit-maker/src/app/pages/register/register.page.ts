@@ -20,6 +20,7 @@ import { FireBaseStoreService } from '../../core/services/firebasestore.service'
 })
 export class RegisterPage {
   protected readonly registerForm = new FormGroup({
+    name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
   });
@@ -41,6 +42,7 @@ export class RegisterPage {
       .subscribe({
         next: (response) => {
           const userInfo = {
+            name: this.registerForm.value.name,
             email: this.registerForm.value.email,
             uid: response.user.uid,
             userType: UserType.User,

@@ -8,7 +8,7 @@
       <li><a>Comunitate</a></li>
       <li><a routerLink="/contulmeu">Cont</a></li>
       <li><a routerLink="/adminmode" *ngIf="authService.isAdmin$ | async">Admin Mode</a></li>
-      <li><a (click)="logout()">LOGOUT</a></li>
+      <li><a class="cursor-pointer" (click)="logout()">LOGOUT</a></li>
     </ul>
     </div>
   </nav>
