@@ -1,50 +1,37 @@
-<div class="bg-redwallpaper max-w-screen-2xl">
-    <div class="text-red-500 items-center justify-center flex font-extrabold text-3xl font-serif">ABONAMENTE</div>
-    <div *ngFor="let subscription of subscriptionList" class="bg-black mt-8 p-14 ml-96 mr-96 relative">
-        <img class="flex" width="210" height="180" src="/assets/images/fitmakerlogo.png" alt="fitmakerlogo" />
-        <div class="text-xl font-extrabold text-white ml-4 font-serif">ABONMANET</div>
-        <div class="text-xl font-medium italic text-white ml-20">{{subscription?.period}}</div>
-      <div class="absolute top-0 right-0 mr-32 mt-16 font-bold italic text-xl">
-        <div  class="flex items-end justify-end text-white">Normal: {{subscription.price}} {{subscription.currency}}</div>
-        <a class="font-bold text-2xl text-red-600 mt-4 cursor-pointer" [routerLink]="['/cumparareabonament', subscription.id]">=>CUMPĂRĂ ACUM!</a>
+<div class="bg-redwallpaper max-w-screen-2xl" *ngIf="!isAlreadyPurchased">
+  <div
+    class="text-red-500 items-center justify-center flex font-extrabold text-3xl font-serif"
+  >
+    ABONAMENTE
+  </div>
+  <div
+    *ngFor="let subscription of subscriptionList"
+    class="bg-black mt-8 p-14 ml-96 mr-96 relative"
+  >
+    <img
+      class="flex"
+      width="210"
+      height="180"
+      src="/assets/images/fitmakerlogo.png"
+      alt="fitmakerlogo"
+    />
+    <div class="text-xl font-extrabold text-white ml-4 font-serif">
+      ABONMANET
+    </div>
+    <div class="text-xl font-medium italic text-white ml-20">
+      {{subscription?.period}}
+    </div>
+    <div class="absolute top-0 right-0 mr-32 mt-16 font-bold italic text-xl">
+      <div class="flex items-end justify-end text-white">
+        Normal: {{subscription.price}} {{subscription.currency}}
       </div>
+      <a
+        class="font-bold text-2xl text-red-600 mt-4 cursor-pointer"
+        [routerLink]="['/cumparareabonament', subscription.id]"
+        >=>CUMPĂRĂ ACUM!</a
+      >
     </div>
-    
-    
-    <!-- <div class="bg-black mt-8 p-14 ml-96 mr-96 relative">
-      <img class="flex" width="210" height="180" src="/assets/images/fitmakerlogo.png" alt="fitmakerlogo" />
-      <div class="text-xl font-extrabold text-white ml-4 font-serif">ABONAMET FULL</div>
-      <div class="text-xl font-medium italic text-white ml-16">1 LUNĂ</div>
-    <div class="absolute top-0 right-0 mr-32 mt-16 font-bold italic text-xl">
-      <div  class="flex items-end justify-end text-white">Studenți: 100 lei</div>
-      <div  class="flex items-end justify-end text-white">Pensionari: 100 lei</div>
-      <div  class="flex items-end justify-end text-white">Normal: 130 lei</div>
-      <p class="font-bold text-2xl text-red-600 mt-4" routerLink="/cumparareabonament">=>CUMPĂRĂ ACUM!</p>
-    </div>
-    </div>
-    
-    <div class="bg-black mt-8 p-14 ml-96 mr-96 relative">
-      <img class="flex" width="210" height="180" src="/assets/images/fitmakerlogo.png" alt="fitmakerlogo" />
-      <div class="text-xl font-extrabold text-white ml-4 font-serif">ABONAMET FULL</div>
-      <div class="text-xl font-medium italic text-white ml-16">3 LUNI</div>
-    <div class="absolute top-0 right-0 mr-32 mt-16 font-bold italic text-xl">
-      <div  class="flex items-end justify-end text-white">Studenți: 275 lei</div>
-      <div  class="flex items-end justify-end text-white">Pensionari: 275 lei</div>
-      <div  class="flex items-end justify-end text-white">Normal: 300 lei</div>
-      <p class="font-bold text-2xl text-red-600 mt-4" routerLink="/cumparareabonament">=>CUMPĂRĂ ACUM!</p>
-    </div>
-    </div>
-    
-    <div class="bg-black mt-8 p-14 ml-96 mr-96 relative">
-      <img class="flex" width="210" height="180" src="/assets/images/fitmakerlogo.png" alt="fitmakerlogo" />
-      <div class="text-xl font-extrabold text-white ml-4 font-serif">ABONAMET FULL</div>
-      <div class="text-xl font-medium italic text-white ml-20">1 AN</div>
-    <div class="absolute top-0 right-0 mr-32 mt-16 font-bold italic text-xl">
-      <div  class="flex items-end justify-end text-white">Studenți: 970 lei</div>
-      <div  class="flex items-end justify-end text-white">Pensionari: 970 lei</div>
-      <div  class="flex items-end justify-end text-white">Normal: 1.020 lei</div>
-      <p class="font-bold text-2xl text-red-600 mt-4" routerLink="/cumparareabonament">=>CUMPĂRĂ ACUM!</p>
-    </div> -->
-    <!-- </div> -->
-    </div>
-    
+  </div>
+</div>
+
+<div class="text-fuchsia-600">Deja ai un abonament</div>
