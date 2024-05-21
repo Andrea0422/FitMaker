@@ -36,8 +36,8 @@ export class ContulMeuPage implements OnInit {
           (element: any) =>
             element.uid === this.authService.getCurrentUser()?.uid
         );
-        this.idsubscription = purchasedSub.id;
-        this.getSubs(purchasedSub.idsubscription);
+        this.idsubscription = purchasedSub?.id;
+        this.getSubs(purchasedSub?.idsubscription);
       });
   }
 

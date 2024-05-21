@@ -26,16 +26,22 @@ export class FireBaseStoreService {
 
   getCustomCollention<T>(
     collectionName: string,
-    customCondition: any
+    customCondition?: any
   ): Observable<T[]> {
-    const q = query(
-      collection(this.firestore, collectionName),
-      where(
-        customCondition.firstField as string,
-        customCondition.condition as WhereFilterOp,
-        customCondition.secondField as string
-      )
-    );
+    let q;
+    if (customCondition) {
+      q = query(
+        collection(this.firestore, collectionName),
+        where(
+          customCondition.firstField as string,
+          customCondition.condition as WhereFilterOp,
+          customCondition.secondField as string
+        )
+      );
+    } else {
+      q = query(
+        collection(this.firestore, collectionName))
+    }
     const getColectionData = collectionData(q, { idField: 'id' });
 
     return getColectionData as Observable<T[]>;
