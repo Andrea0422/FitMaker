@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
 import {
   FormControl,
@@ -28,12 +28,16 @@ export class RegisterPage {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly firebaseStoreService = inject(FireBaseStoreService);
+  protected readonly changeDetector = inject(ChangeDetectorRef);
+
+  isLoading = false;
 
   onSubmit() {
     if (this.registerForm.invalid) {
       return;
     }
 
+    this.isLoading = true;
     this.authService
       .register(
         this.registerForm.value.email as string,
@@ -51,12 +55,14 @@ export class RegisterPage {
             .addCollectionData('userInfo', userInfo)
             .subscribe({
               next: () => {
+                this.isLoading = false;
                 this.router.navigate(['/home']);
+                this.changeDetector.detectChanges();
               },
             });
         },
 
-        error: () => {},
+        error: () => { },
       });
   }
 }

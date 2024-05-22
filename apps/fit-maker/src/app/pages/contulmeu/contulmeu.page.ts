@@ -26,6 +26,7 @@ export class ContulMeuPage implements OnInit {
   private readonly router = inject(Router);
   mySub: any;
   idsubscription: any;
+  isLoading = false;
 
   ngOnInit(): void {
     this.firebaseStoreService
@@ -55,11 +56,14 @@ export class ContulMeuPage implements OnInit {
   }
   onDelete() {
     if (this.mySub) {
+      this.isLoading = true;
       this.firebaseStoreService
         .delete(this.idsubscription, 'purchasedSubs')
         .subscribe({
           next: () => {
             this.mySub = undefined;
+            this.isLoading = false;
+            this.changeDetector.detectChanges();
           },
         });
     }

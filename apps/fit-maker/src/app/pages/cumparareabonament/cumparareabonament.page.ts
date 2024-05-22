@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -22,6 +22,7 @@ export class CumparareAbonament implements OnInit {
   private readonly firebaseStoreService = inject(FireBaseStoreService);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  protected readonly changeDetector = inject(ChangeDetectorRef);
 
   protected readonly subsForm = new FormGroup({
     nume: new FormControl('', [Validators.required]),
@@ -33,6 +34,8 @@ export class CumparareAbonament implements OnInit {
     data: new FormControl('', [Validators.required]),
     cvv: new FormControl('', [Validators.required]),
   });
+
+  isLoading = false;
 
   ngOnInit(): void {
     console.log(this.activatedRoute.snapshot.params['id']);
@@ -65,17 +68,19 @@ export class CumparareAbonament implements OnInit {
     }
   }
   purchaseSubs() {
+    this.isLoading = true;
     const subscription = {
       uid: this.authService.getCurrentUser()?.uid,
       idsubscription: this.activatedRoute.snapshot.params['id'],
       createdDate: new Date(),
     };
-    console.log('1');
     this.firebaseStoreService
       .addCollectionData('purchasedSubs', subscription)
       .subscribe({
         next: () => {
+          this.isLoading = false;
           this.router.navigate(['/abonamentachizitionat']);
+          this.changeDetector.detectChanges();
         },
       });
   }
