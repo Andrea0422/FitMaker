@@ -39,8 +39,7 @@ export class FireBaseStoreService {
         )
       );
     } else {
-      q = query(
-        collection(this.firestore, collectionName))
+      q = query(collection(this.firestore, collectionName));
     }
     const getColectionData = collectionData(q, { idField: 'id' });
 
@@ -56,7 +55,9 @@ export class FireBaseStoreService {
 
   update<T>(data: any, collectionName: any): Observable<any> {
     const collectionRef = doc(this.firestore, `${collectionName}/${data.id}`);
-    return from(setDoc(collectionRef, Object.assign({}, data)));
+    return from(
+      setDoc(collectionRef, Object.assign({}, { id: undefined, ...data }))
+    );
   }
 
   delete(id: any, collectionName: any): Observable<any> {

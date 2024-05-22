@@ -5,7 +5,7 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { FireBaseStoreService } from '../../core/services/firebasestore.service';
@@ -23,6 +23,7 @@ export class ContulMeuPage implements OnInit {
   protected readonly authService = inject(AuthService);
   private readonly firebaseStoreService = inject(FireBaseStoreService);
   protected readonly changeDetector = inject(ChangeDetectorRef);
+  private readonly router = inject(Router);
   mySub: any;
   idsubscription: any;
 
@@ -62,5 +63,37 @@ export class ContulMeuPage implements OnInit {
           },
         });
     }
+  }
+  onDeleteAccount() {
+    this.firebaseStoreService
+      .delete(this.idsubscription, 'purchasedSubs')
+      .subscribe({
+        next: () => {
+          console.log('1');
+          this.firebaseStoreService
+            .getCustomCollention('userInfo', {
+              firstField: 'uid',
+              condition: '==',
+              secondField: this.authService.getCurrentUser()?.uid,
+            })
+            .pipe(first())
+            .subscribe({
+              next: (user: any) => {
+                console.log(user);
+                this.firebaseStoreService
+                  .delete(user[0].id, 'userInfo')
+                  .subscribe({
+                    next: () => {
+                      this.authService.deleteUser().subscribe({
+                        next: () => {
+                          this.router.navigate(['/login']);
+                        },
+                      });
+                    },
+                  });
+              },
+            });
+        },
+      });
   }
 }

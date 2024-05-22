@@ -1,19 +1,33 @@
 <nav class="bg-black p-3 sticky" *ngIf="authService.isLoggedIn">
-    <div class="flex pl-8 gap-28">
-    <img class="flex justify-start" width="120" height="180" src="/assets/images/fitmakerlogo.png" alt="fitmakerlogo" />
-    <ul class="flex flex-row text-white justify-center space-x-4 font-bold items-center">
+  <div class="flex pl-8 gap-28">
+    <img
+      class="flex justify-start"
+      width="120"
+      height="180"
+      src="/assets/images/fitmakerlogo.png"
+      alt="fitmakerlogo"
+    />
+    <ul
+      class="flex flex-row text-white justify-center space-x-4 font-bold items-center"
+    >
       <li><a routerLink="/home">Acasă</a></li>
       <li><a routerLink="/despre">Despre</a></li>
       <li><a routerLink="/abonamente">Abonament</a></li>
-      <li><a>Comunitate</a></li>
       <li><a routerLink="/contulmeu">Cont</a></li>
-      <li><a routerLink="/adminmode" *ngIf="authService.isAdmin$ | async">Admin Mode</a></li>
+      <li>
+        <a routerLink="/adminmode" *ngIf="authService.isAdmin$ | async"
+          >Admin Mode</a
+        >
+      </li>
       <li><a class="cursor-pointer" (click)="logout()">LOGOUT</a></li>
     </ul>
-    </div>
-  </nav>
+  </div>
+</nav>
 <router-outlet />
 <div class="bg-black text-white" *ngIf="authService.isLoggedIn">
-  <p class="pt-6 font-bold text-2xl ml-8">Antrenamentele grele <br> fac jocurile ușoare.</p>
+  <p class="pt-6 font-bold text-2xl ml-8">
+    Antrenamentele grele <br />
+    fac jocurile ușoare.
+  </p>
   <p class="ml-16 font-sans">fitmaker.ro&#64;gmail.com</p>
 </div>

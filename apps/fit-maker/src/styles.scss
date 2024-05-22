@@ -5,4 +5,46 @@
     color: red;
 }
 
-/* You can add global styles to this file, and also import other style files */
+
+.loading {
+    position: relative;
+  }
+  .loading:before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 5;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-top-color: #8dc3f2;
+    -webkit-animation: spinner 0.6s linear infinite;
+    animation: spinner 0.6s linear infinite;
+  }
+  .loading:after {
+    content: "";
+    z-index: 4;
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    bottom: -1px;
+    right: -1px;
+    background: rgba(255, 255, 255, 0.6);
+  }
+  @-webkit-keyframes spinner {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes spinner {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+

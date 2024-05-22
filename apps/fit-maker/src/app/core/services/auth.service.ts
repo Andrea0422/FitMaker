@@ -5,6 +5,8 @@ import {
   createUserWithEmailAndPassword,
   User as FirebaseUser,
   UserCredential,
+  deleteUser,
+  User,
 } from '@angular/fire/auth';
 import { isNil } from 'lodash-es';
 import {
@@ -78,6 +80,10 @@ export class AuthService {
         this.authChange$.next();
       })
     );
+  }
+
+  deleteUser(): Observable<any> {
+    return from(deleteUser(this.fireAuth.currentUser as User));
   }
 
   getCurrentUser(): FirebaseUser | null {
