@@ -1,27 +1,56 @@
 <div class="relative min-h-screen w-full" [class.loading]="isLoading">
-    <div class="p-6">
-        <div
-            class="absolute left-1/2 top-1/2 mx-auto max-w-sm -translate-x-1/2 -translate-y-1/2 transform space-y-4 text-center">
-            <form (ngSubmit)="onSubmit()" [formGroup]="registerForm" class="space-y-4">
-                <div>
-                    <header class="mb-3 text-2xl font-bold text-black">Create your account</header>
-                    <div class="w-full rounded-2xl bg-black px-4 ring-2 ring-gray-200 focus-within:ring-red-400">
-                        <input type="text" formControlName="name" placeholder="Nume"
-                            class="my-3 w-full border-none bg-transparent outline-none focus:outline-none text-white" />
-                    </div>
-                    <div class="w-full rounded-2xl bg-black px-4 ring-2 ring-gray-200 focus-within:ring-red-400">
-                        <input type="text" formControlName="email" placeholder="Email"
-                            class="my-3 w-full border-none bg-transparent outline-none focus:outline-none text-white" />
-                    </div>
-                    <div class="w-full rounded-2xl bg-black px-4 ring-2 ring-gray-200 focus-within:ring-red-400">
-                        <input type="password" formControlName="password" placeholder="Password"
-                            class="my-3 w-full border-none bg-transparent outline-none focus:outline-none text-white" />
-                    </div>
-                    <button type="submit"
-                        class="w-full rounded-2xl border-b-4 py-3 font-bold bg-red-500 text-black active:translate-y-[0.125rem]"
-                        routerLink='/contcreat'>CREATE ACCOUNT</button>
-                </div>
-            </form>
+  <div class="p-6">
+    <div
+      class="absolute left-1/2 top-1/2 mx-auto max-w-sm -translate-x-1/2 -translate-y-1/2 transform space-y-4 text-center"
+    >
+      <form
+        (ngSubmit)="onSubmit()"
+        [formGroup]="registerForm"
+        class="space-y-4"
+      >
+        <div>
+          <header class="mb-3 text-2xl font-bold text-black">
+            Create your account
+          </header>
+          <div
+            class="w-full my-4 rounded-2xl bg-black px-4 ring-2 ring-gray-200 focus-within:ring-red-400"
+          >
+            <input
+              type="text"
+              formControlName="name"
+              placeholder="Nume"
+              class="my-3 w-full border-none bg-transparent outline-none focus:outline-none text-white"
+            />
+          </div>
+          <div
+            class="w-full my-4 rounded-2xl bg-black px-4 ring-2 ring-gray-200 focus-within:ring-red-400"
+          >
+            <input
+              type="text"
+              formControlName="email"
+              placeholder="Email"
+              class="my-3 w-full border-none bg-transparent outline-none focus:outline-none text-white"
+            />
+          </div>
+          <div
+            class="w-full my-4 rounded-2xl bg-black px-4 ring-2 ring-gray-200 focus-within:ring-red-400"
+          >
+            <input
+              type="password"
+              formControlName="password"
+              placeholder="Password"
+              class="my-3 w-full border-none bg-transparent outline-none focus:outline-none text-white"
+            />
+          </div>
+          <button
+            type="submit"
+            class="w-full rounded-2xl border-b-4 py-3 font-bold bg-red-500 text-black active:translate-y-[0.125rem]"
+            routerLink="/contcreat"
+          >
+            CREATE ACCOUNT
+          </button>
         </div>
+      </form>
     </div>
+  </div>
 </div>

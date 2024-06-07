@@ -21,7 +21,14 @@ import { UserType } from '../../core/enums/user-type.enum';
 @Component({
   selector: 'app-admin-page',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, NgFor, NgIf, ReactiveFormsModule],
+  imports: [
+    RouterOutlet,
+    RouterLink,
+    NgFor,
+    NgIf,
+    ReactiveFormsModule,
+    FormsModule,
+  ],
   templateUrl: './adminmode.page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -61,20 +68,22 @@ export class AdminPageComponent implements OnInit {
                 reponseUserInfo.forEach((elementUserInfo: any) => {
                   reponsePurchasedSubs.forEach((elementPurchasedSubs: any) => {
                     if (elementUserInfo.uid === elementPurchasedSubs.uid) {
+                      const subscription = reponseSubscriptions?.find(
+                        (element: any) =>
+                          element.id === elementPurchasedSubs.idsubscription
+                      );
                       this.usersList.push({
                         uid: elementUserInfo.uid,
                         idUser: elementUserInfo.id,
                         userType: elementUserInfo.userType,
                         email: elementUserInfo.email,
                         name: elementUserInfo.name,
-                        subscription: reponseSubscriptions?.find(
-                          (element: any) =>
-                            element.id === elementPurchasedSubs.idsubscription
-                        )?.period,
-                        idsubscription: reponseSubscriptions?.find(
-                          (element: any) =>
-                            element.id === elementPurchasedSubs.idsubscription
-                        )?.id,
+                        subscription: subscription?.period,
+                        idsubscription: subscription?.id,
+                        expirationDate: this.calculateExpirationDate(
+                          elementPurchasedSubs.createdDate,
+                          subscription?.period
+                        ),
                       });
                     }
                     this.usersList = this.usersList.reduce(
@@ -96,6 +105,68 @@ export class AdminPageComponent implements OnInit {
               });
           });
       });
+  }
+
+  calculateExpirationDate(createdDate: any, period: string): string {
+    console.log('createdDate:', createdDate);
+    console.log('period:', period);
+
+    period = period.trim();
+
+    let startDate: Date;
+
+    if (typeof createdDate === 'object' && createdDate.seconds) {
+      startDate = new Date(createdDate.seconds * 1000);
+    } else if (typeof createdDate === 'number') {
+      startDate = new Date(createdDate);
+    } else {
+      startDate = new Date(createdDate);
+    }
+
+    console.log('startDate:', startDate);
+
+    if (isNaN(startDate.getTime())) {
+      return 'Data invalidă';
+    }
+
+    let endDate = new Date(startDate);
+
+    switch (period) {
+      case '1zi':
+      case '1 zi':
+        endDate.setDate(endDate.getDate() + 1);
+        break;
+      case '1luna':
+      case '1 luna':
+        endDate.setMonth(endDate.getMonth() + 1);
+        break;
+      case '3luni':
+      case '3 luni':
+        endDate.setMonth(endDate.getMonth() + 3);
+        break;
+      case '1an':
+      case '1 an':
+        endDate.setFullYear(endDate.getFullYear() + 1);
+        break;
+      default:
+        console.log('Perioada necunoscută:', period);
+        return 'Perioada necunoscută';
+    }
+
+    console.log('endDate:', endDate);
+
+    const startDateString = startDate.toLocaleDateString('ro-RO', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+    const endDateString = endDate.toLocaleDateString('ro-RO', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+
+    return `${startDateString} - ${endDateString}`;
   }
 
   setOnAction(action: string) {

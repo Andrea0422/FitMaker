@@ -27,33 +27,108 @@ export class ContulMeuPage implements OnInit {
   mySub: any;
   idsubscription: any;
   isLoading = false;
+  duration: string | undefined;
 
   ngOnInit(): void {
     this.firebaseStoreService
       .getCollention('purchasedSubs')
       .pipe(first())
       .subscribe((response) => {
-        console.log(response);
         const purchasedSub = response?.find(
           (element: any) =>
             element.uid === this.authService.getCurrentUser()?.uid
         );
         this.idsubscription = purchasedSub?.id;
-        this.getSubs(purchasedSub?.idsubscription);
+        this.getSubs(purchasedSub);
       });
   }
 
-  getSubs(idsubscription: any) {
+  getSubs(purchasedSub: any) {
     this.firebaseStoreService
       .getCollention('subscriptions')
       .pipe(first())
       .subscribe((response) => {
-        this.mySub = response.find(
-          (element: any) => element.id === idsubscription
+        const subscription = response.find(
+          (element: any) => element.id === purchasedSub?.idsubscription
         );
+        if (subscription) {
+          console.log('subscription:', subscription);
+          this.mySub = {
+            ...subscription,
+            createdDate: purchasedSub.createdDate,
+            period: subscription.period,
+            expirationDate: this.calculateExpirationDate(
+              purchasedSub.createdDate,
+              subscription.period
+            ),
+          };
+        }
         this.changeDetector.detectChanges();
       });
   }
+
+  calculateExpirationDate(createdDate: any, period: string): string {
+    console.log('createdDate:', createdDate);
+    console.log('period:', period);
+
+    period = period.trim();
+
+    let startDate: Date;
+
+    if (typeof createdDate === 'object' && createdDate.seconds) {
+      startDate = new Date(createdDate.seconds * 1000);
+    } else if (typeof createdDate === 'number') {
+      startDate = new Date(createdDate);
+    } else {
+      startDate = new Date(createdDate);
+    }
+
+    console.log('startDate:', startDate);
+
+    if (isNaN(startDate.getTime())) {
+      return 'Data invalidă';
+    }
+
+    let endDate = new Date(startDate);
+
+    switch (period) {
+      case '1zi':
+      case '1 zi':
+        endDate.setDate(endDate.getDate() + 1);
+        break;
+      case '1luna':
+      case '1 luna':
+        endDate.setMonth(endDate.getMonth() + 1);
+        break;
+      case '3luni':
+      case '3 luni':
+        endDate.setMonth(endDate.getMonth() + 3);
+        break;
+      case '1an':
+      case '1 an':
+        endDate.setFullYear(endDate.getFullYear() + 1);
+        break;
+      default:
+        console.log('Perioada necunoscută:', period);
+        return 'Perioada necunoscută';
+    }
+
+    console.log('endDate:', endDate);
+
+    const startDateString = startDate.toLocaleDateString('ro-RO', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+    const endDateString = endDate.toLocaleDateString('ro-RO', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+
+    return `${startDateString} - ${endDateString}`;
+  }
+
   onDelete() {
     if (this.mySub) {
       this.isLoading = true;
@@ -68,12 +143,12 @@ export class ContulMeuPage implements OnInit {
         });
     }
   }
+
   onDeleteAccount() {
     this.firebaseStoreService
       .delete(this.idsubscription, 'purchasedSubs')
       .subscribe({
         next: () => {
-          console.log('1');
           this.firebaseStoreService
             .getCustomCollention('userInfo', {
               firstField: 'uid',
@@ -83,7 +158,6 @@ export class ContulMeuPage implements OnInit {
             .pipe(first())
             .subscribe({
               next: (user: any) => {
-                console.log(user);
                 this.firebaseStoreService
                   .delete(user[0].id, 'userInfo')
                   .subscribe({

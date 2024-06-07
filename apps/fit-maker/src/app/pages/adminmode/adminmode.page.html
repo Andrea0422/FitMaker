@@ -61,6 +61,7 @@
         <th class="px-4 py-2">NUME</th>
         <th class="px-4 py-2">EMAIL</th>
         <th class="px-4 py-2">ABONAMENT</th>
+        <th class="px-4 py-2">DURATA ABONAMENTULUI</th>
         <th *ngIf="action" class="px-4 py-2">ACTIUNI</th>
       </tr>
     </thead>
@@ -69,6 +70,7 @@
         <td class="px-4 py-2">{{ item.name }}</td>
         <td class="px-4 py-2">{{ item.email }}</td>
         <td class="px-4 py-2">{{ item.subscription }}</td>
+        <td class="px-4 py-2">{{ item.expirationDate }}</td>
         <td
           *ngIf="action"
           (click)="onAction(action, item)"
