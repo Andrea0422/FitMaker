@@ -25,13 +25,13 @@ export class CumparareAbonament implements OnInit {
   protected readonly changeDetector = inject(ChangeDetectorRef);
 
   protected readonly subsForm = new FormGroup({
-    nume: new FormControl('', [Validators.required]),
-    prenume: new FormControl('', [Validators.required]),
-    adresa: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required]),
+    surname: new FormControl('', [Validators.required]),
+    address: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
-    telefon: new FormControl('', [Validators.required]),
-    nrcard: new FormControl('', [Validators.required]),
-    data: new FormControl('', [Validators.required]),
+    phone: new FormControl('', [Validators.required]),
+    card: new FormControl('', [Validators.required]),
+    date: new FormControl('', [Validators.required]),
     cvv: new FormControl('', [Validators.required]),
   });
 

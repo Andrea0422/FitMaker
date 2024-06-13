@@ -1,15 +1,42 @@
-<div class="flex">
-    <img width="1080" class="h-1/2 left-0 top-0" src="/assets/images/femalehomepage.jpg"  alt="HomePage"/>
-    <img class="flex justify-end w-1/3" width="650"  src="/assets/images/excuses.jpg"  alt="NoExuses"/>
-    </div>
-    
-    <div class="flex pb-8 ml-8">
-        <img  src="/assets/images/fitlogo.png"  alt="FitLogo"/>
-        <h1 class="font-extrabold text-lg">În sala FitMaker, nu ridici doar greutăți, <br> ridici limitele tale. Fiecare picătură de transpirație <br> redefinește potențialul tău,
-        fiecare repetiție <br> sculptează un tine mai puternic.</h1>
-    </div>
-    
-    <div class="mb-6">
-        <p class="font-bold text-2xl text-red-600 bg-black w-1/3 ml-14 rounded-xl"><a [routerLink]="['/abonamente']">=>FĂ-ȚI UN ABONAMENT ACUM!</a></p>
-    </div>
-    
+<div
+  class="flex flex-col items-center justify-center p-8 bg-white min-h-screen"
+>
+  <div class="flex flex-col md:flex-row mb-8 w-full max-w-6xl">
+    <img
+      class="w-full md:w-2/3 rounded-lg shadow-md mb-4 md:mb-0"
+      src="/assets/images/femalehomepage.jpg"
+      alt="HomePage"
+    />
+    <img
+      class="w-full md:w-1/3 md:ml-4 rounded-lg shadow-md"
+      src="/assets/images/excuses.jpg"
+      alt="NoExcuses"
+    />
+  </div>
+
+  <div class="flex items-center mb-8 mt-4">
+    <img
+      class="w-72 h-32 mr-4"
+      src="/assets/images/fitlogo.png"
+      alt="FitLogo"
+    />
+    <h1
+      class="font-extrabold text-2xl text-gray-800 leading-snug text-center md:text-left"
+    >
+      În sala FitMaker, nu ridici doar greutăți,
+      <br />
+      ridici limitele tale. Fiecare picătură de transpirație <br />
+      redefinește potențialul tău, <br />
+      fiecare repetiție sculptează un tine mai puternic.
+    </h1>
+  </div>
+
+  <div class="mb-6">
+    <a
+      href="/abonamente"
+      class="font-bold text-2xl text-white bg-red-600 w-72 text-center py-4 rounded-xl shadow-md hover:bg-red-700 transition-colors duration-300 block mx-auto"
+    >
+      FĂ-ȚI UN ABONAMENT ACUM!
+    </a>
+  </div>
+</div>

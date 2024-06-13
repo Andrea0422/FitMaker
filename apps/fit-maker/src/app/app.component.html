@@ -1,4 +1,4 @@
-<nav class="bg-black p-3 sticky" *ngIf="authService.isLoggedIn">
+<nav class="bg-black p-3 sticky menu" *ngIf="authService.isLoggedIn">
   <div class="flex pl-8 gap-28">
     <img
       class="flex justify-start"
@@ -25,7 +25,7 @@
 </nav>
 
 <router-outlet />
-<div class="bg-black text-white" *ngIf="authService.isLoggedIn">
+<div class="bg-black text-white menu" *ngIf="authService.isLoggedIn">
   <p class="pt-6 font-bold text-2xl ml-8">
     Antrenamentele grele <br />
     fac jocurile ușoare.

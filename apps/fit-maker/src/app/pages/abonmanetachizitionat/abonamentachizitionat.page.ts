@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -8,4 +8,10 @@ import { RouterLink } from '@angular/router';
   imports: [RouterOutlet, RouterLink],
   templateUrl: './abonamentachizitionat.page.html',
 })
-export class AbonamentAchizitionatPage {}
+export class AbonamentAchizitionatPage {
+  constructor(private router: Router, private route: ActivatedRoute) {}
+
+  onNavigateToAccount() {
+    this.router.navigate(['/contulmeu']);
+  }
+}

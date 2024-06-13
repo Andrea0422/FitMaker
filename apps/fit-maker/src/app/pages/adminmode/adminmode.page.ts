@@ -16,7 +16,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { UserType } from '../../core/enums/user-type.enum';
 
 @Component({
   selector: 'app-admin-page',

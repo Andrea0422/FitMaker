@@ -1,5 +1,11 @@
 <div class="bg-redwallpaper flex h-screen justify-center items-center">
-    <div class="text-black text-center bg-red-500  rounded-lg p-8">
-        <p class="text-2xl">Abonamentul a fost achiziționat cu succes!</p>
-    </div>
+  <div class="text-black text-center bg-red-500 rounded-lg p-8">
+    <p class="text-2xl">Abonamentul a fost achiziționat cu succes!</p>
+    <button
+      (click)="onNavigateToAccount()"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+    >
+      Mergi la contul tău si vezi factura
+    </button>
+  </div>
 </div>

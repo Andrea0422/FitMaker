@@ -12,6 +12,7 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { AuthService } from './core/services/auth.service';
 import { AsyncPipe } from '@angular/common';
 import { FireBaseStoreService } from './core/services/firebasestore.service';
+import { CommonModule } from '@angular/common';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBIJrfqZ_QefFMxjvZINkIveRKrsqD7X5U',
@@ -25,6 +26,7 @@ const firebaseConfig = {
 @NgModule({
   declarations: [AppComponent, NxWelcomeComponent],
   imports: [
+    CommonModule,
     BrowserModule,
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     RouterModule.forRoot([...appRoutes]),

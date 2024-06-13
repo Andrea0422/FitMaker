@@ -57,6 +57,7 @@ export class ContulMeuPage implements OnInit {
             ...subscription,
             createdDate: purchasedSub.createdDate,
             period: subscription.period,
+            price: subscription.price,
             expirationDate: this.calculateExpirationDate(
               purchasedSub.createdDate,
               subscription.period
@@ -66,7 +67,6 @@ export class ContulMeuPage implements OnInit {
         this.changeDetector.detectChanges();
       });
   }
-
   calculateExpirationDate(createdDate: any, period: string): string {
     console.log('createdDate:', createdDate);
     console.log('period:', period);
@@ -173,5 +173,9 @@ export class ContulMeuPage implements OnInit {
             });
         },
       });
+  }
+
+  onPrint() {
+    window.print();
   }
 }
