@@ -1,0 +1,63 @@
+<div class="bg-redwallpaper py-8 px-4 pb-52 flex flex-col items-center">
+  <h1 class="text-2xl text-white font-bold mb-4">Listă produse nutritive</h1>
+
+  <input
+    type="text"
+    placeholder="Caută produse..."
+    [(ngModel)]="searchQuery"
+    (input)="filterProducts()"
+    class="mb-4 px-4 py-2 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+  />
+
+  <button
+    *ngIf="authService.isAdmin$ | async"
+    [routerLink]="['/comenziproduse']"
+    class="bg-gray-600 mb-4 text-white px-4 py-2 rounded-lg shadow hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 self-center mt-2"
+  >
+    Vezi comenziile
+  </button>
+  <button
+    *ngIf="authService.isAdmin$ | async"
+    [routerLink]="['/adaugareproduse']"
+    class="bg-gray-600 mb-4 text-white px-4 py-2 rounded-lg shadow hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 self-center mt-2"
+  >
+    + Adaugă un nou produs
+  </button>
+
+  <ul class="w-full max-w-lg">
+    <li
+      *ngFor="let product of filteredProducts"
+      class="flex flex-col bg-black rounded-lg shadow-md p-4 mb-4"
+    >
+      <div>
+        <h2 class="text-xl text-white font-semibold">{{ product.name }}</h2>
+        <p class="text-white text-md flex items-end justify-end mb-1 font-bold">
+          {{ product.price }}
+        </p>
+        <p class="text-gray-500 text-xs font-serif">
+          {{ product.description }}
+        </p>
+      </div>
+      <button
+        [routerLink]="['/cumparareproduse', product.id]"
+        class="bg-green-600 text-white px-4 py-2 rounded-lg shadow hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-blue-500 self-center mt-3"
+      >
+        Cumpără acum
+      </button>
+      <button
+        *ngIf="authService.isAdmin$ | async"
+        [routerLink]="['/editareproduse', product.id]"
+        class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 self-center mt-2"
+      >
+        Editează
+      </button>
+      <button
+        *ngIf="authService.isAdmin$ | async"
+        (click)="deleteProduct(product.id)"
+        class="bg-red-600 text-white px-4 py-2 rounded-lg shadow hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-blue-500 self-center mt-2"
+      >
+        Șterge
+      </button>
+    </li>
+  </ul>
+</div>

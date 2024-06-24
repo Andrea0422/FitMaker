@@ -11,6 +11,11 @@ import {
   docData,
   deleteDoc,
   WhereFilterOp,
+  updateDoc,
+  DocumentReference,
+  DocumentData,
+  getDoc,
+  DocumentSnapshot,
 } from '@angular/fire/firestore';
 import { Observable, from } from 'rxjs';
 
@@ -63,5 +68,43 @@ export class FireBaseStoreService {
   delete(id: any, collectionName: any): Observable<any> {
     const collectionRef = doc(this.firestore, `${collectionName}/${id}`);
     return from(deleteDoc(collectionRef));
+  }
+  getDocumentById(collectionName: string, documentId: string): Observable<any> {
+    const documentRef: DocumentReference<DocumentData> = doc(
+      this.firestore,
+      collectionName,
+      documentId
+    );
+    return new Observable<any>((observer) => {
+      getDoc(documentRef)
+        .then((docSnapshot: DocumentSnapshot<DocumentData>) => {
+          if (docSnapshot.exists()) {
+            observer.next({ id: docSnapshot.id, ...docSnapshot.data() });
+          } else {
+            observer.next(null);
+          }
+          observer.complete();
+        })
+        .catch((error) => {
+          observer.error(error);
+        });
+    });
+  }
+  updateDocument(
+    collectionName: string,
+    documentId: string,
+    data: any
+  ): Observable<any> {
+    const documentRef = doc(this.firestore, collectionName, documentId);
+    return from(updateDoc(documentRef, data));
+  }
+
+  getPurchasedProducts(): Observable<any[]> {
+    const collectionRef = collection(this.firestore, 'purchasedProducts');
+    return collectionData(collectionRef, { idField: 'id' });
+  }
+  updateOrder(orderId: string, updatedData: any) {
+    const orderDocRef = doc(this.firestore, `purchasedProducts/${orderId}`);
+    return updateDoc(orderDocRef, updatedData);
   }
 }

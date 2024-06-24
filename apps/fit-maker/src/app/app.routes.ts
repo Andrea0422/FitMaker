@@ -17,6 +17,12 @@ import { filter, skip, tap } from 'rxjs';
 import { isNil } from 'lodash-es';
 import { CumparareAbonament } from './pages/cumparareabonament/cumparareabonament.page';
 import { AbonamentAchizitionatPage } from './pages/abonmanetachizitionat/abonamentachizitionat.page';
+import { ProduseNutritivePage } from './pages/produsenutritive/produsenutritive.page';
+import { CumparareProduse } from './pages/cumparareproduse/cumparareproduse.page';
+import { ProdusAchizitionatPage } from './pages/produsachizitionat/produsachizitionat.page';
+import { AdaugareProdusPage } from './pages/adaugaproduse/adaugaproduse.page';
+import { EditareProdusePage } from './pages/editareproduse/editareproduse.page';
+import { ComenziProdusePage } from './pages/comenziproduse/comenziproduse.page';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectLoggedInToProjects = () => redirectLoggedInTo(['home']);
@@ -37,6 +43,24 @@ export const appRoutes: Array<Route> = [
   {
     path: 'despre',
     component: DesprePage,
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
+  },
+  {
+    path: 'produsenutritive',
+    component: ProduseNutritivePage,
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
+  },
+  {
+    path: 'cumparareproduse/:id',
+    component: CumparareProduse,
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
+  },
+  {
+    path: 'produsachizitionat',
+    component: ProdusAchizitionatPage,
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
@@ -68,6 +92,75 @@ export const appRoutes: Array<Route> = [
     path: 'cumparareabonament/:id',
     component: CumparareAbonament,
     canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
+  },
+  {
+    path: 'adaugareproduse',
+    component: AdaugareProdusPage,
+    canActivate: [AuthGuard],
+    canMatch: [
+      () => {
+        const authService = inject(AuthService);
+        const router = inject(Router);
+        return authService.isAdmin$.pipe(
+          filter((isAdmin) => {
+            return !isNil(isAdmin);
+          }),
+          tap((isAdmin) => {
+            console.log(isAdmin);
+            if (!isAdmin) {
+              void router.navigate(['/home']);
+            }
+          })
+        );
+      },
+    ],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
+  },
+  {
+    path: 'editareproduse/:id',
+    component: EditareProdusePage,
+    canActivate: [AuthGuard],
+    canMatch: [
+      () => {
+        const authService = inject(AuthService);
+        const router = inject(Router);
+        return authService.isAdmin$.pipe(
+          filter((isAdmin) => {
+            return !isNil(isAdmin);
+          }),
+          tap((isAdmin) => {
+            console.log(isAdmin);
+            if (!isAdmin) {
+              void router.navigate(['/home']);
+            }
+          })
+        );
+      },
+    ],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
+  },
+  {
+    path: 'comenziproduse',
+    component: ComenziProdusePage,
+    canActivate: [AuthGuard],
+    canMatch: [
+      () => {
+        const authService = inject(AuthService);
+        const router = inject(Router);
+        return authService.isAdmin$.pipe(
+          filter((isAdmin) => {
+            return !isNil(isAdmin);
+          }),
+          tap((isAdmin) => {
+            console.log(isAdmin);
+            if (!isAdmin) {
+              void router.navigate(['/home']);
+            }
+          })
+        );
+      },
+    ],
     data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {

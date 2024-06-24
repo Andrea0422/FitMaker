@@ -33,9 +33,11 @@ import {
 })
 export class AdminPageComponent implements OnInit {
   usersList: any = [];
+  filteredUsers: any = [];
   action: any;
   subscriptions: any = [];
   selectedUser: any;
+  searchQuery: string = '';
 
   protected readonly userForm = new FormGroup({
     idsubscription: new FormControl('', [Validators.required]),
@@ -46,6 +48,7 @@ export class AdminPageComponent implements OnInit {
     idUser: new FormControl('', [Validators.required]),
     selectedSubscription: new FormControl('', [Validators.required]),
   });
+
   constructor(
     private readonly fireBaseStoreService: FireBaseStoreService,
     protected changeDetector: ChangeDetectorRef
@@ -98,6 +101,7 @@ export class AdminPageComponent implements OnInit {
                       },
                       []
                     );
+                    this.filteredUsers = this.usersList;
                     this.changeDetector.detectChanges();
                   });
                 });
@@ -166,6 +170,20 @@ export class AdminPageComponent implements OnInit {
     });
 
     return `${startDateString} - ${endDateString}`;
+  }
+
+  filterUsers(): void {
+    const query = this.searchQuery.toLowerCase();
+    if (!query) {
+      this.filteredUsers = this.usersList;
+    } else {
+      this.filteredUsers = this.usersList.filter(
+        (user: any) =>
+          user.name.toLowerCase().includes(query) ||
+          user.email.toLowerCase().includes(query)
+      );
+    }
+    this.changeDetector.detectChanges();
   }
 
   setOnAction(action: string) {

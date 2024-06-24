@@ -1,0 +1,79 @@
+<div class="bg-redwallpaper py-8 px-2 pb-80 flex flex-col items-center">
+  <h1 class="text-2xl text-white font-bold mb-4">Comenzi produse</h1>
+
+  <input
+    type="text"
+    placeholder="Caută comenzi..."
+    [(ngModel)]="searchQuery"
+    (input)="filterOrders()"
+    class="mb-4 px-4 py-2 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+  />
+
+  <table class="min-w-full">
+    <thead class="bg-gray-400 text-black">
+      <tr>
+        <th class="py-2">Nume client</th>
+        <th class="py-2">Adresă</th>
+        <th class="py-2">Telefon</th>
+        <th class="py-2">Produs</th>
+        <th class="py-2">Preț</th>
+        <th class="py-2">Data comenzii</th>
+        <th class="py-2">Acțiuni</th>
+      </tr>
+    </thead>
+    <tbody class="bg-black text-white">
+      <tr *ngFor="let order of filteredOrders">
+        <td class="border px-4 py-2">
+          <input
+            *ngIf="order.editing"
+            [(ngModel)]="order.name"
+            class="w-full bg-gray-800 text-white px-2 py-1 rounded"
+          />
+          <span *ngIf="!order.editing">{{ order.name }}</span>
+        </td>
+        <td class="border px-4 py-2">
+          <input
+            *ngIf="order.editing"
+            [(ngModel)]="order.address"
+            class="w-full bg-gray-800 text-white px-2 py-1 rounded"
+          />
+          <span *ngIf="!order.editing">{{ order.address }}</span>
+        </td>
+        <td class="border px-4 py-2">
+          <input
+            *ngIf="order.editing"
+            [(ngModel)]="order.phone"
+            class="w-full bg-gray-800 text-white px-2 py-1 rounded"
+          />
+          <span *ngIf="!order.editing">{{ order.phone }}</span>
+        </td>
+        <td class="border px-4 py-2">{{ order.productName }}</td>
+        <td class="border px-4 py-2">{{ order.productPrice }}</td>
+        <td class="border px-4 py-2">{{ order.createdDate | date:'short' }}</td>
+        <td class="border px-4 py-2">
+          <button
+            *ngIf="!order.editing"
+            (click)="enableEditing(order)"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
+          >
+            Edit
+          </button>
+          <button
+            *ngIf="order.editing"
+            (click)="saveOrder(order)"
+            class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded"
+          >
+            Save
+          </button>
+          <button
+            *ngIf="order.editing"
+            (click)="cancelEditing(order)"
+            class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+          >
+            Cancel
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
