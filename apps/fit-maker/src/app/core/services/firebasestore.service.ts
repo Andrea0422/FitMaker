@@ -18,10 +18,12 @@ import {
   DocumentSnapshot,
 } from '@angular/fire/firestore';
 import { Observable, from } from 'rxjs';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Injectable()
 export class FireBaseStoreService {
   private readonly firestore = inject(Firestore);
+  constructor(private storage: AngularFireStorage) {}
 
   addCollectionData(collectionName: string, data: any): Observable<any> {
     const collectionRef = collection(this.firestore, collectionName);
@@ -106,5 +108,10 @@ export class FireBaseStoreService {
   updateOrder(orderId: string, updatedData: any) {
     const orderDocRef = doc(this.firestore, `purchasedProducts/${orderId}`);
     return updateDoc(orderDocRef, updatedData);
+  }
+
+  deleteImage(imageUrl: string): Observable<void> {
+    const imageRef = this.storage.refFromURL(imageUrl);
+    return imageRef.delete();
   }
 }

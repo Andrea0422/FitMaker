@@ -49,7 +49,9 @@
         </td>
         <td class="border px-4 py-2">{{ order.productName }}</td>
         <td class="border px-4 py-2">{{ order.productPrice }}</td>
-        <td class="border px-4 py-2">{{ order.createdDate | date:'short' }}</td>
+        <td class="border px-4 py-2">
+          {{ order.createdDate | date: 'dd/MM/yyyy' }}
+        </td>
         <td class="border px-4 py-2">
           <button
             *ngIf="!order.editing"
@@ -61,7 +63,7 @@
           <button
             *ngIf="order.editing"
             (click)="saveOrder(order)"
-            class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded"
+            class="bg-green-500 hover:bg-green-700 mr-2 text-white font-bold py-1 px-2 rounded"
           >
             Save
           </button>

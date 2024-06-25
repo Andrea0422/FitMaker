@@ -1,4 +1,4 @@
-<div class="bg-redwallpaper py-8 px-4 h-screen flex flex-col items-center">
+<div class="bg-redwallpaper py-8 px-4 h-full flex flex-col items-center">
   <h1 class="text-2xl text-white font-bold mb-4">Editează produsul</h1>
   <form
     [formGroup]="productForm"
@@ -30,6 +30,27 @@
         required
         class="w-full mt-6 p-3 border border-gray-300 rounded-md text-white bg-transparent outline-none focus:border-red-500 resize-none h-24"
       ></textarea>
+    </div>
+    <div>
+      <input
+        type="file"
+        (change)="onFileSelected($event)"
+        class="w-full mt-6 mb-6 p-3 border border-gray-300 rounded-md text-white bg-transparent outline-none focus:border-red-500"
+      />
+    </div>
+    <div *ngIf="selectedFileUrl" class="mb-6">
+      <img
+        [src]="selectedFileUrl"
+        alt="Product Image"
+        class="w-full h-auto rounded-md"
+      />
+    </div>
+    <div *ngIf="currentImageUrl && !selectedFileUrl" class="mb-6">
+      <img
+        [src]="currentImageUrl"
+        alt="Product Image"
+        class="w-full h-auto rounded-md"
+      />
     </div>
     <button
       type="submit"

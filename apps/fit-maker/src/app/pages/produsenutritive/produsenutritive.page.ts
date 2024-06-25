@@ -4,11 +4,11 @@ import { AuthService } from '../../core/services/auth.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule, FormsModule],
   selector: 'app-produsenutritive',
   templateUrl: './produsenutritive.page.html',
 })
@@ -34,7 +34,7 @@ export class ProduseNutritivePage implements OnInit {
     this.products$ = this.firebaseService.getCollention('products');
     this.products$.subscribe(
       (products) => {
-        console.log('Products loaded from FireBaseStoreService:', products);
+        console.log('Products loaded from FirebaseStoreService:', products);
         this.allProducts = products;
         this.filterProducts();
         this.cdr.detectChanges();
@@ -61,18 +61,35 @@ export class ProduseNutritivePage implements OnInit {
 
   deleteProduct(productId: string) {
     if (confirm('Ești sigur că vrei să ștergi acest produs?')) {
-      this.firebaseService.delete(productId, 'products').subscribe(
-        () => {
-          console.log('Produsul a fost șters cu succes:', productId);
-          this.allProducts = this.allProducts.filter(
-            (product) => product.id !== productId
-          );
-          this.filterProducts();
-        },
-        (error) => {
-          console.error('Eroare la ștergerea produsului:', error);
-        }
+      // Obținem imaginea asociată produsului
+      const productToDelete = this.allProducts.find(
+        (product) => product.id === productId
       );
+      if (productToDelete) {
+        // Ștergem imaginea din Firebase Storage
+        this.firebaseService.deleteImage(productToDelete.imageUrl).subscribe(
+          () => {
+            console.log('Imaginea a fost ștearsă cu succes');
+            // Ștergem produsul din baza de date Firestore
+            this.firebaseService.delete(productId, 'products').subscribe(
+              () => {
+                console.log('Produsul a fost șters cu succes:', productId);
+                // Actualizăm lista de produse
+                this.allProducts = this.allProducts.filter(
+                  (product) => product.id !== productId
+                );
+                this.filterProducts();
+              },
+              (error) => {
+                console.error('Eroare la ștergerea produsului:', error);
+              }
+            );
+          },
+          (error) => {
+            console.error('Eroare la ștergerea imaginii:', error);
+          }
+        );
+      }
     }
   }
 }

@@ -89,7 +89,11 @@
   </div>
   <div class="invoice-item my-4">
     <label>Total plată</label>
-    <div class="value">{{ mySub?.price }}</div>
+    <div class="value">{{ mySub?.price }} lei</div>
+  </div>
+  <div class="invoice-item my-4">
+    <label>TVA 19%</label>
+    <div class="value">{{ calculateVAT(mySub?.price) }} lei</div>
   </div>
 
   <h1 class="text-2xl font-bold mb-4 mt-6 flex items-center justify-center">
