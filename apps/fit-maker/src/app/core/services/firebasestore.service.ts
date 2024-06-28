@@ -105,6 +105,22 @@ export class FireBaseStoreService {
     const collectionRef = collection(this.firestore, 'purchasedProducts');
     return collectionData(collectionRef, { idField: 'id' });
   }
+
+  getPurchasedSubscriptions(): Observable<any[]> {
+    const collectionRef = collection(this.firestore, 'purchasedSubs');
+    return collectionData(collectionRef, { idField: 'id' });
+  }
+
+  getProducts(): Observable<any[]> {
+    const collectionRef = collection(this.firestore, 'products');
+    return collectionData(collectionRef, { idField: 'id' });
+  }
+
+  getSubscriptions(): Observable<any[]> {
+    const collectionRef = collection(this.firestore, 'subscriptions');
+    return collectionData(collectionRef, { idField: 'id' });
+  }
+
   updateOrder(orderId: string, updatedData: any) {
     const orderDocRef = doc(this.firestore, `purchasedProducts/${orderId}`);
     return updateDoc(orderDocRef, updatedData);

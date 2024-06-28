@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FireBaseStoreService } from '../../core/services/firebasestore.service';
+import { AuthService } from '../../core/services/auth.service'; // Importă AuthService
 import { CommonModule } from '@angular/common';
 import { Observable, combineLatest, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -35,6 +36,7 @@ export class ComenziProdusePage implements OnInit {
 
   constructor(
     private firebaseService: FireBaseStoreService,
+    private authService: AuthService, // Injectează AuthService
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -136,18 +138,33 @@ export class ComenziProdusePage implements OnInit {
   }
 
   saveOrder(order: any) {
+    const currentUser = this.authService.getCurrentUser();
+
+    if (!currentUser) {
+      console.error('Current user not found.');
+      return;
+    }
+
+    const purchasedProduct = {
+      name: order.name,
+      address: order.address,
+      phone: order.phone,
+      idproduct: order.idproduct,
+      createdDate: new Date(),
+      uid: currentUser.uid,
+    };
+
     this.firebaseService
-      .updateOrder(order.id, {
-        name: order.name,
-        address: order.address,
-        phone: order.phone,
-      })
-      .then(() => {
-        order.editing = false;
-        this.cdr.detectChanges();
-      })
-      .catch((error) => {
-        console.error('Error updating order:', error);
+      .addCollectionData('purchasedProducts', purchasedProduct)
+      .subscribe({
+        next: () => {
+          console.log('Product purchased successfully', purchasedProduct);
+          order.editing = false;
+          this.cdr.detectChanges();
+        },
+        error: (error) => {
+          console.error('Error purchasing product: ', error);
+        },
       });
   }
 

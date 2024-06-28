@@ -23,6 +23,7 @@ import { ProdusAchizitionatPage } from './pages/produsachizitionat/produsachizit
 import { AdaugareProdusPage } from './pages/adaugaproduse/adaugaproduse.page';
 import { EditareProdusePage } from './pages/editareproduse/editareproduse.page';
 import { ComenziProdusePage } from './pages/comenziproduse/comenziproduse.page';
+import { ChartPage } from './pages/chart/chart.page';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectLoggedInToProjects = () => redirectLoggedInTo(['home']);
@@ -143,6 +144,29 @@ export const appRoutes: Array<Route> = [
   {
     path: 'comenziproduse',
     component: ComenziProdusePage,
+    canActivate: [AuthGuard],
+    canMatch: [
+      () => {
+        const authService = inject(AuthService);
+        const router = inject(Router);
+        return authService.isAdmin$.pipe(
+          filter((isAdmin) => {
+            return !isNil(isAdmin);
+          }),
+          tap((isAdmin) => {
+            console.log(isAdmin);
+            if (!isAdmin) {
+              void router.navigate(['/home']);
+            }
+          })
+        );
+      },
+    ],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
+  },
+  {
+    path: 'chart',
+    component: ChartPage,
     canActivate: [AuthGuard],
     canMatch: [
       () => {

@@ -8,13 +8,18 @@
       alt="fitmakerlogo"
     />
     <ul
-      class="flex flex-row text-white justify-center space-x-4 font-bold items-center"
+      class="flex flex-row text-white justify-center space-x-5 font-bold items-center"
     >
       <li><a routerLink="/home">Acasă</a></li>
       <li><a routerLink="/despre">Despre</a></li>
       <li><a routerLink="/abonamente">Abonament</a></li>
       <li><a routerLink="/contulmeu">Cont</a></li>
       <li><a routerLink="/produsenutritive">Produse nutritive</a></li>
+      <li>
+        <a routerLink="/chart" *ngIf="authService.isAdmin$ | async"
+          >Top vânzări</a
+        >
+      </li>
       <li>
         <a routerLink="/adminmode" *ngIf="authService.isAdmin$ | async"
           >Admin Mode</a
