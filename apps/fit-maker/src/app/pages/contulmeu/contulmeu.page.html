@@ -55,55 +55,5 @@
         Cumpără abonament
       </button>
     </div>
-
-    <!-- <button
-      *ngIf="mySub"
-      (click)="onPrint()"
-      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 menu"
-    >
-      Descarcă factura
-    </button> -->
-  </div>
-</div>
-
-<div class="print-only mb-6">
-  <img class="w-48 h-20 mr-4" src="/assets/images/fitlogo.png" alt="FitLogo" />
-  <h1 class="text-2xl font-bold mb-2 flex items-center justify-center">
-    FitMaker GYM
-  </h1>
-  <h1 class="text-2xl font-bold flex items-center justify-center mb-4">
-    Factura abonamentului
-  </h1>
-
-  <div class="invoice-item my-4">
-    <label>Email</label>
-    <div class="value">{{ authService.getCurrentUser()?.email }}</div>
-  </div>
-  <div class="invoice-item my-4">
-    <label>Abonament</label>
-    <div class="value">{{ mySub?.period }}</div>
-  </div>
-  <div class="invoice-item my-4">
-    <label>Durata abonament</label>
-    <div class="value">{{ mySub?.expirationDate }}</div>
-  </div>
-  <div class="invoice-item my-4">
-    <label>Total plată</label>
-    <div class="value">{{ mySub?.price }} lei</div>
-  </div>
-  <div class="invoice-item my-4">
-    <label>TVA 19%</label>
-    <div class="value">{{ calculateVAT(mySub?.price) }} lei</div>
-  </div>
-
-  <h1 class="text-2xl font-bold mb-4 mt-6 flex items-center justify-center">
-    Mulțumim pentru achiziționare!
-  </h1>
-
-  <div class="text-right mt-14">
-    <p>FitMaker GYM</p>
-    <p>fitmaker.ro@gmail.com</p>
-    <p>0778654765</p>
-    <p>Bd. Republicii, Baia Mare, Maramureș</p>
   </div>
 </div>

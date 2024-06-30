@@ -61,20 +61,16 @@ export class ProduseNutritivePage implements OnInit {
 
   deleteProduct(productId: string) {
     if (confirm('Ești sigur că vrei să ștergi acest produs?')) {
-      // Obținem imaginea asociată produsului
       const productToDelete = this.allProducts.find(
         (product) => product.id === productId
       );
       if (productToDelete) {
-        // Ștergem imaginea din Firebase Storage
         this.firebaseService.deleteImage(productToDelete.imageUrl).subscribe(
           () => {
             console.log('Imaginea a fost ștearsă cu succes');
-            // Ștergem produsul din baza de date Firestore
             this.firebaseService.delete(productId, 'products').subscribe(
               () => {
                 console.log('Produsul a fost șters cu succes:', productId);
-                // Actualizăm lista de produse
                 this.allProducts = this.allProducts.filter(
                   (product) => product.id !== productId
                 );

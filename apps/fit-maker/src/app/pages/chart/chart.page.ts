@@ -153,22 +153,18 @@ export class ChartPage implements OnInit, OnDestroy {
     if (chartCanvas) {
       const ctx = chartCanvas.getContext('2d');
 
-      // Destroy the previous Chart instance if exists
       if (this.chartInstance) {
         this.chartInstance.destroy();
       }
 
-      // Get all purchased products and subscriptions
       const productData = products.map((product) => ({
         id: product.id,
         name: product.name,
         count: productCounts[product.id] || 0,
       }));
 
-      // Sort products by count in descending order
       productData.sort((a, b) => b.count - a.count);
 
-      // Get all purchased subscriptions
       this.firestoreService
         .getPurchasedSubscriptions()
         .subscribe((purchasedSubs) => {
@@ -177,7 +173,6 @@ export class ChartPage implements OnInit, OnDestroy {
             'idsubscription'
           );
 
-          // Get all subscriptions from Firestore
           this.firestoreService
             .getSubscriptions()
             .subscribe((subscriptions) => {
@@ -187,10 +182,8 @@ export class ChartPage implements OnInit, OnDestroy {
                 count: subscriptionCounts[subscription.id] || 0,
               }));
 
-              // Sort subscriptions by count in descending order
               subscriptionData.sort((a, b) => b.count - a.count);
 
-              // Create data for the chart
               const labels = [
                 ...productData.map((product) => product.name),
                 ...subscriptionData.map((subscription) => subscription.details),
@@ -217,14 +210,13 @@ export class ChartPage implements OnInit, OnDestroy {
                 'rgba(255, 159, 64, 1)',
               ];
 
-              // Create a new Chart.js bar chart
               this.chartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
                   labels: labels,
                   datasets: [
                     {
-                      label: 'Count',
+                      label: 'Vanzari',
                       data: counts,
                       backgroundColor: backgroundColors.slice(0, counts.length),
                       borderColor: borderColors.slice(0, counts.length),
@@ -238,7 +230,7 @@ export class ChartPage implements OnInit, OnDestroy {
                       beginAtZero: true,
                       title: {
                         display: true,
-                        text: 'Count',
+                        text: 'Vanzari',
                       },
                     },
                   },

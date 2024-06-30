@@ -174,12 +174,4 @@ export class ContulMeuPage implements OnInit {
         },
       });
   }
-
-  onPrint() {
-    window.print();
-  }
-  calculateVAT(price: number): number {
-    const VAT_RATE = 0.19;
-    return price * VAT_RATE;
-  }
 }

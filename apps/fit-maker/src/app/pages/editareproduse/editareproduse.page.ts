@@ -64,7 +64,6 @@ export class EditareProdusePage implements OnInit {
         this.selectedFileUrl = e.target.result;
       };
       reader.readAsDataURL(this.selectedFile);
-      // Reset the currentImageUrl so that only the new image is shown
       this.currentImageUrl = null;
     }
   }
