@@ -159,12 +159,15 @@ export class ComenziProdusePage implements OnInit {
       address: order.address,
       phone: order.phone,
       idproduct: order.idproduct,
+      cnp: order.cnp,
       createdDate: new Date(),
       uid: currentUser.uid,
+      id: order.id,
     };
+    console.log(purchasedProduct);
 
     this.firebaseService
-      .addCollectionData('purchasedProducts', purchasedProduct)
+      .update(purchasedProduct, 'purchasedProducts')
       .subscribe({
         next: () => {
           console.log('Produs achiziționat cu succes', purchasedProduct);
@@ -175,6 +178,18 @@ export class ComenziProdusePage implements OnInit {
           console.error('Eroare la achiziționarea produsului: ', error);
         },
       });
+    // this.firebaseService
+    //   .addCollectionData('purchasedProducts', purchasedProduct)
+    //   .subscribe({
+    //     next: () => {
+    //       console.log('Produs achiziționat cu succes', purchasedProduct);
+    //       order.editing = false;
+    //       this.cdr.detectChanges();
+    //     },
+    //     error: (error) => {
+    //       console.error('Eroare la achiziționarea produsului: ', error);
+    //     },
+    //   });
   }
 
   async downloadInvoice(order: any) {
