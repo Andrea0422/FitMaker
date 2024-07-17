@@ -178,18 +178,6 @@ export class ComenziProdusePage implements OnInit {
           console.error('Eroare la achiziționarea produsului: ', error);
         },
       });
-    // this.firebaseService
-    //   .addCollectionData('purchasedProducts', purchasedProduct)
-    //   .subscribe({
-    //     next: () => {
-    //       console.log('Produs achiziționat cu succes', purchasedProduct);
-    //       order.editing = false;
-    //       this.cdr.detectChanges();
-    //     },
-    //     error: (error) => {
-    //       console.error('Eroare la achiziționarea produsului: ', error);
-    //     },
-    //   });
   }
 
   async downloadInvoice(order: any) {
